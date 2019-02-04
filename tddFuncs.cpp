@@ -30,4 +30,3 @@ void assertTrue(bool expression,
 	 << "     Expected true, but was false " << endl;
   }
 }
-

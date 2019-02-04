@@ -60,4 +60,3 @@ std::string Student::toString() const {
       << this->getFirstAndMiddleNames() << "]";
   return oss.str();
 } 
-

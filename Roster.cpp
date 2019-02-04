@@ -82,19 +82,19 @@ Student Roster::getStudentAt(int index) const {
 
 std::string Roster::toString() const {
   std::string result = "{\n";
-  while (int i = 0; i < getNumStudents(); i++) {
+  for (int i = 0; i < getNumStudents(); i++) {
     
     result += "[";
-    result += (students[i]).getPerm();
+    result += std::to_string(students[i]->getPerm());
     result += ",";
-    result += (students[i]).getFirstName();
+    result += (students[i]->getLastName());
     result += ",";
-    result += (students[i]).getMiddleAndLastNames();
+    result += (students[i]->getFirstAndMiddleNames());
     result += "]";
-    if (i != (getNumStudents - 1)) {
+    if (i != (getNumStudents() - 1)) {
 	result += ",";
     }
-    result += "\n"              // @@@ RESTORE THIS
+    result += "\n";              // @@@ RESTORE THIS
 
   }
 
@@ -104,10 +104,8 @@ std::string Roster::toString() const {
 }
 
 void Roster::sortByPerm() {
-  int temp;
-  int LargestIndex;
-  int largest;
-  for (i = getNumStudents()-1; i > 0; i--) {
+  int largestIndex = getNumStudents()-1;
+  for (int i = getNumStudents()-1; i > 0; i--) {
     /*
     largestIndex = 0;
     largest = students[0];
@@ -116,23 +114,21 @@ void Roster::sortByPerm() {
 	largest = students[j];
 	largestIndex = j;
     */
-    largestIndex = indexOfMaxPermAmongFirstKStudents(getNumStudents());
-    
-      }
-    }
+    largestIndex = indexOfMaxPermAmongFirstKStudents(i-1);
+    sortByPermHelper(largestIndex);
   }
-  
 }
 
 int Roster::indexOfMaxPermAmongFirstKStudents(int k) const {
-  int LargestIndex = 0;
-  int largestInK = (students[0]).getPerm();
-  for (i = 0; i < k; i++){
-    if ((students[i]).getPerm() > largestInK) {
+  int largestIndex = 0;
+  int largestInK = (students[0]->getPerm());
+  for (int i = 0; i < k; i++){
+    if (((*students[i]).getPerm()) > largestInK) {
       largestIndex = i;
-      largestInK = students[i];
+      largestInK = students[i]->getPerm();
     }
-    return largestIndex
+  }
+  return largestIndex;
 }
 
 void Roster::sortByPermHelper(int k) {
@@ -140,12 +136,18 @@ void Roster::sortByPermHelper(int k) {
 
 
   int im = indexOfMaxPermAmongFirstKStudents(k);
+  std::swap(students[im],students[k-1]);
+  
 
   // now swap the pointers between index im and index k-1
-  int temp = im;
-  students[im] = students[k];
-  students[k] = students[temp];
+
+   // std::swap(*students[im],*students[k-1]);
+  /*
+  Student temp;
+  temp = students[k-1];
+  students[k-1] = students[im];
+  students[im] = temp; */
+ 
   return;
-  
   
 }
