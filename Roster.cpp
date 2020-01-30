@@ -5,8 +5,8 @@
 #include <cassert>
 
 Roster::Roster() {
+  
   // initialize to empty array
-
   this->numStudents = 0;
   for (int i=0; i<ROSTER_MAX; i++) {
     this->students[i] = NULL;
@@ -94,7 +94,7 @@ std::string Roster::toString() const {
     if (i != (getNumStudents() - 1)) {
 	result += ",";
     }
-    result += "\n";              // @@@ RESTORE THIS
+    result += "\n";
 
   }
 
@@ -106,16 +106,10 @@ std::string Roster::toString() const {
 void Roster::sortByPerm() {
   int largestIndex = getNumStudents()-1;
   for (int i = getNumStudents()-1; i > 0; i--) {
-    /*
-    largestIndex = 0;
-    largest = students[0];
-    for (int j = 1; j <= i; j++) {
-      if (students[j] > largest) {
-	largest = students[j];
-	largestIndex = j;
-    */
+ 
     largestIndex = indexOfMaxPermAmongFirstKStudents(i-1);
     sortByPermHelper(largestIndex);
+    
   }
 }
 
@@ -132,22 +126,11 @@ int Roster::indexOfMaxPermAmongFirstKStudents(int k) const {
 }
 
 void Roster::sortByPermHelper(int k) {
+
   // swaps max perm from [0..k-1] with elem [k-1]
-
-
+  // now swap the pointers between index im and index k-1
   int im = indexOfMaxPermAmongFirstKStudents(k);
   std::swap(students[im],students[k-1]);
-  
-
-  // now swap the pointers between index im and index k-1
-
-   // std::swap(*students[im],*students[k-1]);
-  /*
-  Student temp;
-  temp = students[k-1];
-  students[k-1] = students[im];
-  students[im] = temp; */
- 
   return;
   
 }

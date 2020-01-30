@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 
+// Default Constructor
 Student::Student(int perm, 
 		 std::string lastName, 
 		 std::string firstAndMiddleNames) {
@@ -12,9 +13,8 @@ Student::Student(int perm,
 
 }
 
-// construct a Student object from a single line of
-// comma separated text, e.g. "1234567,Smith,Mary Kay"
 
+// Student Object Constructor
 Student::Student (std::string csvString) {
 
   std::istringstream iss(csvString);
@@ -32,24 +32,28 @@ Student::Student (std::string csvString) {
   getline(iss, this->firstAndMiddleNames, '\n');
 }
 
-
+// Returns Perm Number
 int Student::getPerm() const { 
   return perm;
 }
 
+// Returns Last Name
 std::string Student::getLastName() const { 
   return std::string(lastName);
 }
 
+// Returns First Name and Middle Name
 std::string Student::getFirstAndMiddleNames() const {
   return firstAndMiddleNames;
 }
 
+// Creates String Containing First, Middle, and Last Names
 std::string Student::getFullName() const { 
   std::string fullName = getFirstAndMiddleNames() + " " + getLastName();
   return fullName;
 }
 
+// Converts Array Containing Name and Perm Number to Full String
 std::string Student::toString() const { 
   // e.g. [12345,Smith,Malory Logan]
   std::ostringstream oss;
